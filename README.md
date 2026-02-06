@@ -2,7 +2,8 @@
 
 Sdílená pravidla pro Cursor AI napříč projekty. Kolegové si je mohou nainstalovat do libovolného projektu a Cursor je bude při úpravách kódu respektovat.
 
-**Repozitář:** [github.com/sensio-cz/cursor-rules](https://github.com/sensio-cz/cursor-rules)
+**Repozitář:** [github.com/tobolik/cursor-rules](https://github.com/tobolik/cursor-rules)  
+(Po vytvoření organizace **sensio-cz** na GitHubu lze repozitář do ní přenést: Settings → Danger zone → Transfer ownership.)
 
 ---
 
@@ -50,7 +51,7 @@ Pokud repo ještě neexistuje, vytvořte ho na GitHubu (organizace **sensio-cz**
 Ve svém projektu:
 
 ```bash
-git submodule add https://github.com/sensio-cz/cursor-rules.git .cursor/rules-upstream
+git submodule add https://github.com/tobolik/cursor-rules.git .cursor/rules-upstream
 ```
 
 Pak buď zkopíruj `rules-upstream/rules/*.mdc` do `.cursor/rules/`, nebo v projektu nastav symlink (na Windows může být potřeba admin). Jednodušší je skript:
