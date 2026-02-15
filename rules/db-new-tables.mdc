@@ -16,7 +16,7 @@ Při vytváření nových tabulek v tomto projektu **vždy** použij standardní
 - **Smazání:** `softDelete($table, $id)` – nastaví valid_to
 - **Čtení:** `findActive()`, `findAllActive()` – filtruje WHERE valid_to IS NULL
 
-Přímý INSERT bez softInsert = chybí valid_user_from, valid_from atd.
+Přímý INSERT bez softInsert = chybí bank_accounts_id, valid_user_from, valid_from atd.
 
 ## Sloupce v každé nové tabulce
 
