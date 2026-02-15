@@ -35,4 +35,6 @@ Při úpravách API, migrací nebo nových tabulek **vždy** dodržuj následuj�
 
 - Při každé změně kódu zvýšit verzi (PATCH): `vMAJOR.MINOR.PATCH`.
 - Stejnou hodnotu (bez „v“) použít u všech `?v=...` u CSS a JS (cache busting).
-- Viz také `version-increment.mdc`.
+- Viz také `.cursor/rules/version-increment.mdc`.
+
+Plná dokumentace: `docs/SOFT-UPDATE-AND-VERSIONING.md`.
