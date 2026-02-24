@@ -37,6 +37,21 @@ Přímý INSERT bez softInsert = chybí bank_accounts_id, valid_user_from, valid
 - Používat `findActive`, `findAllActive` pro čtení (WHERE valid_to IS NULL)
 - Přidat tabulku do `$FIELDS`, `$REQUIRED`, `$FIELD_LABELS`
 
+
+## Cizí klíče – pojmenování sloupce
+
+- Odkaz na entity_id jiné tabulky se jmenuje **`{odkazovaná_tabulka}_id`**.
+- Příklad: sloupec odkazující na `users.users_id` = `users_id`, ne `user_id`.
+- Pravidlo platí i pro `valid_user_from` / `valid_user_to` – tam je výjimka, jde o auditní sloupce se zkráceným názvem.
+
+```sql
+-- SPRÁVNĚ
+sessions.users_id  →  JOIN users ON users.users_id = sessions.users_id AND users.valid_to IS NULL
+
+-- ŠPATNĚ
+sessions.user_id   →  nekonzistentní s konvencí {tabulka}_id
+```
+
 ## Příklad migrace
 
 ```sql
