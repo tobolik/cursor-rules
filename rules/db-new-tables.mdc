@@ -12,7 +12,7 @@ Při vytváření nových tabulek v tomto projektu **vždy** použij standardní
 
 **Nikdy nepoužívat přímý INSERT/UPDATE/DELETE** pro tabulky s soft-update logikou. Vždy:
 - **Přidání:** `softInsert($table, $data)` – automaticky doplní valid_from, valid_to, valid_user_from, valid_user_to, {tabulka}_id
-- **Úprava:** `softUpdate($table, $id, $data)` – invaliduje starý řádek, vytvoří nový
+- **Úprava:** `softUpdate($table, $id, $data)` – porovná hodnoty, a pouze pokud se něco změnilo, invaliduje starý řádek a vytvoří nový. Pokud jsou data stejná, vrátí původní id bez zápisu.
 - **Smazání:** `softDelete($table, $id)` – nastaví valid_to
 - **Čtení:** `findActive()`, `findAllActive()` – filtruje WHERE valid_to IS NULL
 
@@ -30,6 +30,20 @@ Přímý INSERT bez softInsert = chybí bank_accounts_id, valid_user_from, valid
 
 - `INDEX idx_{tabulka}_id ({tabulka}_id, valid_to)`
 - `INDEX idx_v (valid_to)`
+
+## Change detection v softUpdate
+
+`softUpdate` **musí** před zápisem porovnat nová data se stávajícím záznamem. Pokud jsou všechny hodnoty shodné, nový řádek se nevytvoří a vrátí se původní `$id`. Tím se zabrání zbytečnému růstu tabulky a duplicitním záznamům v historii.
+
+```php
+foreach ($data as $key => $value) {
+    if ((string)($row[$key] ?? '') !== (string)($value ?? '')) {
+        $changed = true;
+        break;
+    }
+}
+if (!$changed) return (int)$id;
+```
 
 ## API (crud.php)
 
